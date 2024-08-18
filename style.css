@@ -1,0 +1,289 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Young+Serif&display=swap");
+
+:root {
+  --clr-white: hsl(0, 0%, 100%);
+  --clr-stone-100: hsl(30, 54%, 90%);
+  --clr-stone-150: hsl(30, 18%, 87%);
+  --clr-stone-600: hsl(30, 10%, 34%);
+  --clr-stone-900: hsl(24, 5%, 18%);
+  --clr-brown-800: hsl(14, 45%, 36%);
+  --clr-rose-50: hsl(330, 100%, 98%);
+  --clr-rose-800: hsl(332, 51%, 32%);
+
+  --text-base: 1rem;
+
+  --ff-sans: "Outfit", sans-serif;
+  --ff-serif: "Young Serif", serif;
+
+  --fw-normal: 400;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+}
+
+/* CSS Reset */
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+/*
+  5. Improve media defaults
+*/
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+/*
+  6. Remove built-in form typography styles
+*/
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+/*
+  7. Avoid text overflows
+*/
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+/*
+  8. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
+/*
+  9. Remove list style for lists
+*/
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: var(--text-base);
+  font-family: var(--ff-sans);
+  color: var(--clr-stone-600);
+
+  display: grid;
+  gap: 1rem;
+  place-content: center;
+  min-height: 100svh;
+}
+
+.recipe-modal {
+  view-transition-name: selected-modal;
+}
+
+.recipe-modal[open] {
+  position: fixed;
+  max-width: 100%;
+  max-height: 100%;
+  border: 1rem;
+  padding: 0;
+  outline: 0;
+}
+@media (min-width: 50em) {
+  .recipe-modal[open] {
+    inset: 50% auto auto 50%; /* top right bottom left */
+    translate: -50% -50%;
+    max-width: 40rem;
+    max-height: calc(100vh - 3rem);
+    border-radius: 1rem;
+  }
+
+  .recipe-modal__inner > img {
+    border-radius: 1rem;
+  }
+}
+
+.recipe-modal:not([open]) {
+  display: none;
+}
+
+.flow > * + * {
+  margin-top: 1em;
+}
+
+@media (min-width: 50em) {
+  .recipe-modal__inner {
+    padding: 2rem;
+  }
+}
+
+.recipe-modal__inner > .content {
+  padding: 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.recipe-modal__inner > .content .header .title {
+  font-size: 2rem;
+  font-family: var(--ff-serif);
+  font-weight: var(--fw-bold);
+  line-height: 1.2;
+}
+
+.recipe-modal__inner > .content section {
+  padding: var(--section-padding, 1rem);
+}
+.recipe-modal__inner > .content section[data-section="colored"] {
+  border-radius: 16px;
+}
+
+.recipe-modal__inner > .content section :is(ul, ol) {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.recipe-modal__inner > .content section :is(ul, ol) li {
+  padding-left: 1em;
+}
+
+.recipe-modal__inner > .content section :is(ul, ol) {
+  list-style: var(--list-style, disc);
+  padding-inline-start: var(--list-padding, 1.5rem);
+}
+
+.recipe-modal__inner > .content section ol {
+  --list-style: decimal;
+}
+
+.recipe-modal__inner > .content section ul li::marker {
+  font-size: 12px;
+}
+.recipe-modal__inner > .content section[data-section="colored"] ul li::marker {
+  color: var(--clr-rose-800);
+}
+
+.recipe-modal__inner > .content section ol {
+  list-style: decimal;
+}
+
+.recipe-modal__inner > .content section .title {
+  color: var(--section-color, black);
+}
+
+.recipe-modal__inner > .content section[data-section="colored"] {
+  --section-padding: 1.5rem;
+  background-color: hsl(from var(--clr-rose-800) h s l / 0.05);
+}
+
+.recipe-modal__inner > .content section[data-section="colored"] .title {
+  --section-color: var(--clr-rose-800);
+  font-size: 1.2rem;
+}
+
+.recipe-modal__inner > .content section[data-section="underline"] {
+  --section-padding: 0;
+}
+.recipe-modal__inner > .content section[data-section="underline"] :is(ul, ol) {
+  --list-padding: 2rem;
+}
+.recipe-modal__inner > .content section[data-section="underline"] .title {
+  --section-color: var(--clr-brown-800);
+  font-size: 1.7rem;
+  font-family: var(--ff-serif);
+}
+
+.recipe-modal__inner
+  > .content
+  section[data-section="underline"]:not(:last-of-type) {
+  border-bottom: 1px solid lightgray;
+  padding-block-end: 2rem;
+}
+
+.recipe-modal__inner > .content section :is(ul, ol) li span {
+  font-weight: var(--fw-semibold);
+}
+
+.recipe-modal__inner > .content section table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recipe-modal__inner > .content section table :is(caption, tr) {
+  text-align: left;
+}
+
+.recipe-modal__inner > .content section table tr:not(:last-child) {
+  border-bottom: 1px solid var(--clr-stone-150);
+}
+
+.recipe-modal__inner > .content section table :is(th, td) {
+  padding: 1rem;
+}
+
+.button {
+  padding: 0.75em 1.5em;
+  border-radius: 1rem;
+  border: 0;
+  background-color: var(--clr-brown-800);
+  color: var(--clr-white);
+  font-size: 1.1rem;
+  letter-spacing: 1.5px;
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-250px);
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-250px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+::view-transition-old(selected-modal) {
+  animation: slide-up 350ms ease 0s 1 normal forwards;
+}
+::view-transition-new(selected-modal) {
+  animation: slide-down 350ms ease 0s 1 normal forwards;
+}
